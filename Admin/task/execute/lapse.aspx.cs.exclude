@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+
+public partial class Admin_task_execute_update : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (Request.QueryString["id"] == "lapse")
+        {
+            weeklyLapse();
+        }
+    }
+
+    private void weeklyLapse()
+    {
+        var getPlan = db.tblPlans.First();
+        decimal BvAmount = (decimal)getPlan.BVAmount;
+
+        IEnumerable<Payout> checkPayout = db.ExecuteQuery<Payout>(@"with t as
+                            (Select p.*,ROW_NUMBER() over(partition by p.username order by p.confirmdate desc) as RowNum from Payout p
+                            where p.[desc]='Binary Commission')
+                            select * from t inner join tblmember m
+                            on t.username=m.username 
+                             where t.RowNum=1 and t.date=Convert(date,GetDate()-7)
+                             and (m.lcarry>0 or m.rcarry>0)");   //GetDate() will fetch utc
+
+        foreach (Payout p in checkPayout)
+        {
+            tblMember g = db.tblMembers.Where(x => x.username == p.username).Single();
+
+            int lapse = (int)((decimal)g.lcarry / BvAmount) + (int)((decimal)g.rcarry / BvAmount);
+            bvLapse(0, g.username, "Lapse", DateTime.UtcNow.AddHours(5.5), "Power Leg Lapse", lapse, (decimal)g.lcarry / BvAmount,
+                (decimal)g.rcarry / BvAmount, 0, 0, 0, 0, 0);
+
+            g.goldlcarry = 0;
+            g.goldrcarry = 0;
+            g.lcarry = 0;
+            g.rcarry = 0;
+
+            db.SubmitChanges();
+        }
+    }
+    protected void bvLapse(Decimal amt, string uname, string desc, DateTime date, string remarks, int totalMatch,
+    decimal oldleft, decimal oldright, decimal newLeft, decimal newRight, decimal match, decimal paid, decimal flush)
+    {
+        var findUser = db.tblMembers.SingleOrDefault(x => x.username == uname);
+
+
+        var insert = new Payout();
+        insert.username = uname;
+        insert.date = date.Date;
+        insert.confirmdate = date;
+        insert.desc = desc;
+        insert.tax = 0;
+        insert.credit = amt;
+        insert.debit = 0;
+        insert.netpayout = amt;
+        insert.status = "Send";
+        insert.incomefrom = uname;
+        insert.remarks = remarks;
+        insert.reward = totalMatch;
+        insert.Left_Previous = oldleft;
+        insert.Right_Previous = oldright;
+        insert.Left_New = newLeft;
+        insert.Right_New = newRight;
+        insert.match = match;
+        insert.paid = paid;
+        insert.flush = flush;
+        db.Payouts.InsertOnSubmit(insert);
+        db.SubmitChanges();
+    }
+
+}

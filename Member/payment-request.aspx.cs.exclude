@@ -1,0 +1,120 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Drawing;
+
+public partial class withdraw_request : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    sendsms sm = new sendsms();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            string uname = Session["username"].ToString();
+
+            if (!IsPostBack)
+            {
+                var findMobile = (from c in db.tblMembers
+                                  where c.username == uname
+                                  select c).SingleOrDefault();
+
+                lblWallet.Text = Convert.ToInt32(findMobile.credit.Value).ToString();
+
+                if (findMobile.credit.Value < 500)
+                {
+                    Button1.Enabled = false;
+                }
+
+            }
+            if (Request.QueryString["st"] == "sub")
+            {
+                lblSuccess.Text = "Withdraw request submitted successfully";
+                lblSuccess.Visible = true;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("../login.aspx");
+        }
+    }
+
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        lblSuccess.Visible = false;
+        lblError.Visible = false;
+
+        string uname = Session["username"].ToString();
+
+
+        var find = (from c in db.tblMembers
+                    where c.username == uname
+                    select c).SingleOrDefault();
+
+        var findPlan = db.tblPlans.Where(x => x.PlanName == find.plan).SingleOrDefault();
+
+        //if (string.IsNullOrEmpty(find.account) && string.IsNullOrEmpty(find.ifsc))
+        //{
+        //    lblError.Text = "Your bank details were not updated, please update the bank details and try again";
+        //    lblError.Visible = true;
+        //    return;
+        //}
+
+        decimal amt = Convert.ToDecimal(TextBox1.Text);
+
+        if (amt < 500)
+        {
+            lblError.Text = "Minimum amount required for withdrawal is 500.";
+            lblError.Visible = true;
+            return;
+        }
+
+        if (find.credit.Value < amt)
+        {
+            lblError.Text = "Entered amount exceeds the wallet amount.";
+            lblError.Visible = true;
+            return;
+        }
+
+        if (amt % 500 != 0)
+        {
+            lblError.Text = "Withdrawal amount should be in multiple of 500.";
+            lblError.Visible = true;
+            return;
+        }
+
+        var insert = new PaymentRequest
+        {
+
+            username = uname,
+            cashavailable = find.credit,
+            amount = amt,
+            tax = 0,
+            sc = 0,
+            netpay = amt,
+            date = DateTime.UtcNow.AddHours(5.5).Date,
+            status = "Pending"
+
+        };
+
+        find.credit = find.credit - amt;
+        //find.debit = find.debit + amt;
+
+        db.PaymentRequests.InsertOnSubmit(insert);
+        db.SubmitChanges();
+
+        //string msg = "Dear " + find.name + ", We have received your withdrawal request for the amount Rs " + amt + ". It will be processed shortly.";
+        //sm.sms(find.mobile, msg);
+
+        //string msgAdmin = "A member " + find.name + " has sent a withdrawal request for the amount of Rs " + amt + ".";
+        //sm.sms("9901777963", msgAdmin);
+
+        Response.Redirect("payment-request.aspx?st=sub");
+
+    }
+}

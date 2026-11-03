@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_task_execute_auto : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["id"] == "auto")
+        {
+            DateTime date = DateTime.UtcNow.AddHours(5.5);
+            if (Request.QueryString["d"] != null)
+            {
+                date = Convert.ToDateTime(Request.QueryString["d"]);
+            }
+
+            GenerateFranchiseCommission(date);
+
+        }
+    }
+
+    private void GenerateFranchiseCommission(DateTime? date = null)
+    {
+        if (date == null)
+            date = DateTime.UtcNow.AddHours(5.5).Date;
+        var getpayout = from c in db.tblVendors
+                        where c.IsActive == true && c.RepurchaseWallet >= 150 //&& c.isPanVerifed == true
+                        select c;
+
+        foreach (var g in getpayout)
+        {
+            decimal credit = g.RepurchaseWallet.Value * 90 / 100;
+            decimal deduction = 0;
+            int? loanId = null;
+            var checkLoan = db.tblLoans.FirstOrDefault(x => x.status == "Active" && x.username == g.Username);
+            if (checkLoan != null)
+            {
+                decimal remaining = checkLoan.loanAmount.Value - checkLoan.recoveredAmount.Value;
+                decimal deductionAmt = credit * checkLoan.recoveryPercent.Value / 100;
+                if (deductionAmt > remaining)
+                {
+                    deduction = remaining;
+                }
+                else
+                {
+                    deduction = deductionAmt;
+                }
+
+                loanId = checkLoan.loanId;
+                checkLoan.recoveredAmount += deduction;
+                if (checkLoan.loanAmount == checkLoan.recoveredAmount)
+                    checkLoan.status = "Closed";
+            }
+            decimal amt = g.RepurchaseWallet.Value;
+
+            var insert = new PaymentRequest
+            {
+                date = date,
+                username = g.Username,
+                cashavailable = g.RepurchaseWallet,
+                amount = g.RepurchaseWallet,
+                deduction = deduction,
+                tax = amt * 2 / 100,
+                sc = amt * 8 / 100,
+                netpay = ((amt * 90 / 100) - deduction),
+                status = "Pending",
+                comments = "Franchisee Commission"
+            };
+            if (deduction > 0)
+            {
+                insert.loanId = loanId;
+            }
+
+            db.PaymentRequests.InsertOnSubmit(insert);
+            g.RepurchaseWallet = 0;
+            db.SubmitChanges();
+        }
+    }
+
+}

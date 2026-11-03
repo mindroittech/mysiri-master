@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_task_execute_achievement_auto : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        DateTime date = DateTime.UtcNow.AddHours(5.5);
+        GenerateAchievementBonus(date);
+    }
+    private void GenerateAchievementBonus(DateTime? date = null)
+    {
+        if (date == null)
+            date = DateTime.UtcNow.AddHours(5.5).Date;
+        var getpayout = from c in db.tblMembers
+                        where c.achievementwallet >= 999 
+                        select c;     
+
+        foreach (var g in getpayout)
+        {
+            decimal credit = g.achievementwallet.Value * 90 / 100;
+            decimal deduction = 0;
+            int? loanId = null;
+            var checkLoan = db.tblLoans.FirstOrDefault(x => x.status == "Active" && x.username == g.username);
+            if (checkLoan != null)
+            {
+                decimal remaining = checkLoan.loanAmount.Value - checkLoan.recoveredAmount.Value;
+                decimal deductionAmt = credit * checkLoan.recoveryPercent.Value / 100;
+                if (deductionAmt > remaining)
+                {
+                    deduction = remaining;
+                }
+                else
+                {
+                    deduction = deductionAmt;
+                }
+
+
+                loanId = checkLoan.loanId;
+                checkLoan.recoveredAmount += deduction;
+                if (checkLoan.loanAmount == checkLoan.recoveredAmount)
+                    checkLoan.status = "Closed";
+
+            }
+            decimal amt = g.achievementwallet.Value;
+
+            var insert = new PaymentRequest
+            {
+                date = date,
+                username = g.username,
+                cashavailable = g.achievementwallet,
+                amount = g.achievementwallet,
+                deduction = deduction,
+                tax = amt * 2 / 100,                                 // update to 2% TDS charge arzoo  DT. 01-10-2024
+                sc = amt * 8 / 100,                                 // update to 8% admin charge arzoo
+                netpay = ((amt * 90 / 100) - deduction),
+                status = "Pending",
+                comments = "Achievement"
+            };
+            if (deduction > 0)
+            {
+                insert.loanId = loanId;
+            }
+
+            db.PaymentRequests.InsertOnSubmit(insert);
+            g.achievementwallet = 0;
+            db.SubmitChanges();
+        }
+    }
+}

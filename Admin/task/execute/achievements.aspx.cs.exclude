@@ -1,0 +1,120 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_task_execute_achievements : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    sendsms sm = new sendsms();
+    protected void Page_Load(object sender, EventArgs e)
+    {        
+        if (Request.QueryString["id"] == "achieve")
+        {
+            DateTime date = DateTime.UtcNow.AddHours(5.5);
+            AchievementPlanCutoff(date);
+        }   
+    }
+    private void AchievementPlanCutoff(DateTime date)
+    {
+        var achievementPlans = db.tblAchievementBonus.OrderBy(ap => ap.MatchingPV).ToList();
+
+        Decimal amt = 0;
+        var getall = from c in db.tblMembers                
+                     where c.TourPackageEligible == true && c.alcarry > 999 && c.arcarry > 999
+                     && c.isActive == 1 && c.status == "Paid" 
+                     select c;
+
+        foreach (var g in getall)
+        {
+            if (g.achivementlevel == null)
+            {
+                g.achivementlevel = 1;
+            }
+           
+            while (g.achivementlevel.HasValue)
+            {
+                var currentPlan = achievementPlans.FirstOrDefault(ap => ap.Level == g.achivementlevel.Value);
+
+                if (currentPlan == null)
+                {                    
+                    break;
+                }
+                Decimal left = (decimal)g.alcarry;
+                Decimal right = (decimal)g.arcarry;
+
+                decimal oldLeft = (decimal)g.algoldcarry;
+                decimal oldRight = (decimal)g.argoldcarry;
+
+                decimal newLeft = (decimal)g.alcarry - oldLeft;
+                decimal newRight = (decimal)g.arcarry - oldRight;
+
+                Decimal matchingPV = Math.Min(left, right);
+
+                if (matchingPV >= currentPlan.MatchingPV)
+                {
+                     amt = (int) currentPlan.BonusAmount ;
+
+                    g.alcarry -= currentPlan.MatchingPV;
+                    g.arcarry -= currentPlan.MatchingPV;
+                               
+                    decimal match = (decimal)currentPlan.MatchingPV;
+                    decimal paid = amt;
+
+                    bvpayout(amt, 0, g.username, "Achievement Bonus", date, "Achievement Commission", 0,
+                    oldLeft, oldRight, newLeft, newRight, match, paid, 0);
+                   
+                    var achievementRecord = new AchievementBonusList
+                    {
+                        Username = g.username,
+                        Award = currentPlan.AwardReward,
+                        Date = date,
+                        Match = (int)currentPlan.MatchingPV,
+                        Remarks = "Level " +g.achivementlevel,
+                        Bonus = amt,
+                        status="Pending"
+                    };
+                    db.AchievementBonusLists.InsertOnSubmit(achievementRecord);
+
+                    g.achievementwallet += amt;
+                    g.achivementlevel += 1;
+
+                    db.SubmitChanges();
+                }
+                else
+                {                  
+                    break;
+                }
+            }
+        }
+    }
+    protected void bvpayout(Decimal amt, Decimal deduction, string uname, string desc, DateTime date, string remarks, int totalMatch,
+    decimal oldleft, decimal oldright, decimal newLeft, decimal newRight, decimal match, decimal paid, decimal flush)
+    {
+        var insert = new Payout();
+        insert.username = uname;
+        insert.date = date.Date;
+        insert.confirmdate = date;
+        insert.desc = desc;
+        insert.tax = deduction;
+        insert.credit = amt;
+        insert.debit = 0;
+        insert.netpayout = amt - deduction;
+        insert.status = "Send";
+        insert.incomefrom = uname;
+        insert.remarks = remarks;
+        insert.reward = totalMatch;
+        insert.Left_Previous = oldleft;
+        insert.Right_Previous = oldright;
+        insert.Left_New = newLeft;
+        insert.Right_New = newRight;
+        insert.match = match;
+        insert.paid = paid;
+        insert.flush = flush;
+        db.Payouts.InsertOnSubmit(insert);
+       // db.SubmitChanges();
+    }
+
+}

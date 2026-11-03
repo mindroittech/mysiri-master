@@ -1,0 +1,83 @@
+﻿<%@ Page Title="Payment Request" Language="C#" MasterPageFile="member.master" AutoEventWireup="true"
+    CodeFile="payment-request.aspx.cs" Inherits="withdraw_request" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </asp:ToolkitScriptManager>
+    <div class="br-pagebody">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header tx-medium bd-0 tx-white bg-primary">
+                        Withdraw Request
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                    <!-- MAIN CONTENT AREA STARTS -->
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div>
+                                    &nbsp;<asp:Label ID="lblError" runat="server" ForeColor="Red" Text="" Visible="False"
+                                        Font-Size="Small"></asp:Label>
+                                    <br />
+                                    <span id="ctl00_ContentPlaceHolder1_lbl_msg" style="display: inline-block; font-weight: bold;
+                                        width: 500px;">
+                                        <asp:Label ID="lblSuccess" runat="server" ForeColor="#009933" Text="Label" Visible="False"></asp:Label>
+                                    </span>
+                                    <table cellpadding="5" cellspacing="4" style=" margin-left: 0px;">
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong style="font-weight: bold;">Wallet Amount (Rs)</strong>&nbsp;
+                                            </td>
+                                            <td>
+                                                <span id="ctl00_ContentPlaceHolder1_Label3" style="display: inline-block; font-weight: bold;
+                                                    width: 68px;">
+                                                    <asp:Label ID="lblWallet" runat="server" Text="0"></asp:Label>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong style="font-weight: bold;">Withdrawal Amount </strong>&nbsp;
+                                            </td>
+                                            <td>
+                                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control"></asp:TextBox>
+                                                <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers"
+                                                    TargetControlID="TextBox1" />
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox1"
+                                                    ErrorMessage="Enter Amount" ForeColor="Red" ValidationGroup="gt"></asp:RequiredFieldValidator>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div>
+                                        <br />
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <asp:Button ID="Button1" runat="server" Text="Send Withdrawal Request" CssClass="btn btn-primary mr-2"
+                                            ValidationGroup="gt" OnClick="Button1_Click" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div>
+                                    <span style="font-weight: bold; font-size: 14px; color: Red">Note: </span>
+                                    <li><span style="color: Blue; font-size: 13px">Minimum amount required for withdrawal
+                                        is 500.</span> </li>
+                                    <li><span style="color: Blue; font-size: 13px">Withdrawal amount should be in multiples
+                                        of Rs 500 (Ex: 500, 1000, 1500, 2000 etc)</span>
+                                    </lis>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</asp:Content>

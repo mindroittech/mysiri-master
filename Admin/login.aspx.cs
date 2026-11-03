@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_login : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        // db.CreateDatabase();
+
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            var login = (from c in db.Admins
+                         where c.username == TextBox1.Value && c.password == TextBox2.Value
+                         select c).SingleOrDefault();
+
+            if (login != null)
+            {
+                Session["admin"] = TextBox1.Value;
+                Session["role"] = login.role;
+                Response.Redirect("dashboard.aspx");
+            }
+            else
+            {
+                Label1.Visible = true;
+            }
+        }
+        catch
+        {
+            Label1.Visible = true;
+        }
+    }
+}

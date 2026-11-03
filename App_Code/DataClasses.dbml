@@ -1,0 +1,870 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="mysiri_db" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Ifsc" Member="Ifscs">
+    <Type Name="Ifsc">
+      <Column Name="bankname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ifsc" Member="ifsc1" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="branchname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblQuery" Member="tblQueries">
+    <Type Name="tblQuery">
+      <Column Name="QueryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPromotionalSms" Member="tblPromotionalSms">
+    <Type Name="tblPromotionalSm">
+      <Column Name="smsid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="number" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="message" Type="System.String" DbType="VarChar(1050)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="senddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="extra" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblContact" Member="tblContacts">
+    <Type Name="tblContact">
+      <Column Name="cid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sub" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="message" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="proof" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Display" Member="Displays">
+    <Type Name="Display">
+      <Column Name="did" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="news" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="package" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AchieverList" Member="AchieverLists">
+    <Type Name="AchieverList">
+      <Column Name="AcheiverId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AcheiverName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AchieverLevel" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AchieverMonth" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblCoupons" Member="tblCoupons">
+    <Type Name="tblCoupon">
+      <Column Name="CouponId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CouponName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsValid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Used" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UsedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Extra" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblMemberTour" Member="tblMemberTours">
+    <Type Name="tblMemberTour">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tourId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tourType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="startDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="endDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="updatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblTourPackage" Member="tblTourPackages">
+    <Type Name="tblTourPackage">
+      <Column Name="tourId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tourPackage" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tourDesc" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="tourDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tourAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Payout" Member="Payouts">
+    <Type Name="Payout">
+      <Column Name="PayoutId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[desc]" Member="desc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="credit" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="tax" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="netpayout" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="confirmdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="debit" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="reward" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="incomefrom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Left_Previous" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Right_Previous" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Left_New" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Right_New" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="match" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="paid" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="flush" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MasterAward" Member="MasterAwards">
+    <Type Name="MasterAward">
+      <Column Name="RewardId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RewardPoint" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Designation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Rewards" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAwards" Member="tblAwards">
+    <Type Name="tblAward">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="achievedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="awardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="courier" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblActivation" Member="tblActivations">
+    <Type Name="tblActivation">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="activatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="activatedBy" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="withdrawDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="isactive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="oldPlan" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="newPlan" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRepurchase" Member="tblRepurchases">
+    <Type Name="tblRepurchase">
+      <Column Name="rid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="product_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="product_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="purchaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RepurchaseBV" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="InvoiceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tpInvId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblVendorStock" Member="tblVendorStocks">
+    <Type Name="tblVendorStock">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Stock" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSupplier" Member="tblSuppliers">
+    <Type Name="tblSupplier">
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SupplierName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PinCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ContactNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GSTNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ContactNo2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPurchase" Member="tblPurchases">
+    <Type Name="tblPurchase">
+      <Column Name="PurchaseId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PurchaseDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="InviceNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Rate" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="GSTAmt" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="NetTotal" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FranchiseeWalletRequest" Member="FranchiseeWalletRequests">
+    <Type Name="FranchiseeWalletRequest">
+      <Column Name="pid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PlanName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="amountRequired" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="paymode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="transactionno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="bank" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="accno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="counterfoil" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="branch" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ifsc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ActionOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="createdDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="depositeType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="reason" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DepositeDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DepositeTime" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FranchiseeWallet" Member="FranchiseeWallets">
+    <Type Name="FranchiseeWallet">
+      <Column Name="PayoutId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[desc]" Member="desc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="credit" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="confirmdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="debit" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IncomeFrom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BVReport" Member="BVReports">
+    <Type Name="BVReport">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="oldLeft" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="oldRight" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="newLeft" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="newRight" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="selfBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="maintenanceBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="oldSelf" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="income" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="status" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblLoan" Member="tblLoans">
+    <Type Name="tblLoan">
+      <Column Name="loanId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="loanAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="recoveryPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="recoveredAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="closedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PaymentRequest" Member="PaymentRequests">
+    <Type Name="PaymentRequest">
+      <Column Name="paymentid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="cashavailable" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="tax" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="sc" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="netpay" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="paiddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="[transaction]" Member="transaction" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="loanId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deduction" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MatchingIncentive" Member="MatchingIncentives">
+    <Type Name="MatchingIncentive">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Incentive" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="IncPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblInvoice" Member="tblInvoices">
+    <Type Name="tblInvoice">
+      <Column Name="InvoiceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PurchaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InvoiceNo" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="BV" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="CourierName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CourierAddress" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="AWBNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DispachedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeliveredOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dispatchedTo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="KitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeliveryType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FranchiseeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PayMode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="CourierCharge" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="userType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="returnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="returnProduct" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="returnReason" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="returnActionOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="returnCourier" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="returnAWB" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="returnRemarks" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="attachment" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Commission" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="RepurchaseCommission" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ReAssignDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReAssignedFrom" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="transactionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="invType" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="selfCheck" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Admin" Member="Admins">
+    <Type Name="Admin">
+      <Column Name="username" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="role" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="selfPurchaseEnabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StockRequest" Member="StockRequests">
+    <Type Name="StockRequest">
+      <Column Name="SrId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Requestdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AmountPaid" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RequestTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AwbNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SentBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PayMode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Attachment" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Delivery" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InvoiceNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="billingAddress" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RequestType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Courier" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="commission" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="billedAmt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="isFree" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PinRequestByPlan" Member="PinRequestByPlans">
+    <Type Name="PinRequestByPlan">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="planId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QtyReq" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QtySent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PinRequest" Member="PinRequests">
+    <Type Name="PinRequest">
+      <Column Name="pid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PlanName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="noofPins" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="paymode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="transactionno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="bank" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="accno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="counterfoil" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="createdDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="actionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PinManagaer" Member="PinManagaers">
+    <Type Name="PinManagaer">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="pinnumbers" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="issued" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="usedby" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="package" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="transferby" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="initialTransfer" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsFreePin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="useDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RequestProduct" Member="RequestProducts">
+    <Type Name="RequestProduct">
+      <Column Name="pid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="product" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="senddate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="shipment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="size" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="cost" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="pinReqId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pin_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.News" Member="News">
+    <Type Name="New">
+      <Column Name="nid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="[desc]" Member="desc" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="createDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="toDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StockRequestProduct" Member="StockRequestProducts">
+    <Type Name="StockRequestProduct">
+      <Column Name="SRPId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QtyReq" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QtySent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SrId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InvNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="repBV" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="gst" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRankAchieved" Member="tblRankAchieveds">
+    <Type Name="tblRankAchieved">
+      <Column Name="rid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="rankId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="termLeft" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateAchieved" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="rewardStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="rewardDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="rankType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PinTransferHistory" Member="PinTransferHistories">
+    <Type Name="PinTransferHistory">
+      <Column Name="pid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="pinnumbers" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="transferedFrom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="transferedTo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="transferDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="package" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UTR" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PayMode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblBV" Member="tblBVs">
+    <Type Name="tblBV">
+      <Column Name="BvId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[desc]" Member="desc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="bvFrom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Bv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="leftBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="rightBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="invId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bvType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="rcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="leftPoints" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="rightPoints" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBLstates" Member="TBLstates">
+    <Type Name="TBLstate">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="stateName" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="TBLstate_tbldistrict" Member="tbldistricts" ThisKey="ID" OtherKey="stateid" Type="tbldistrict" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbldistricts" Member="tbldistricts">
+    <Type Name="tbldistrict">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="district" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="TBLstate_tbldistrict" Member="TBLstate" ThisKey="stateid" OtherKey="ID" Type="TBLstate" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblProduct" Member="tblProducts">
+    <Type Name="tblProduct">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="HSNCode" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="GST" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="PlanId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GrandTotal" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="UOM" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SubCategory" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ExpiryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BasePrice" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="MRP" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="DP" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="PV" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="SuperStockistPrice" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="StockistPrice" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="FranchisePrice" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="FreeEligible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AwardEligible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="oldPrice" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ActiveToFanchisee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblReferrals" Member="tblReferrals">
+    <Type Name="tblReferral">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VendorName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CompanyCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Pincode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RoleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PAN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Aadhar" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="GSTIN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="slip" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="depositeDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UTR" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="bank" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UTR2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UTR3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="slip2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="slip3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="district" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPlan" Member="tblPlans">
+    <Type Name="tblPlan">
+      <Column Name="PlanId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlanAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="PlanName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BVAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="DailyCap" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="points" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="bonus" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PvAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblLoanHistory" Member="tblLoanHistories">
+    <Type Name="tblLoanHistory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="loanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="loanAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="recoveryPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="recoveredAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="closedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="approveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAchievementBonus" Member="tblAchievementBonus">
+    <Type Name="tblAchievementBonus">
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AwardReward" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="BonusAmount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="MatchingPV" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AchievementBonusList" Member="AchievementBonusLists">
+    <Type Name="AchievementBonusList">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Award" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Match" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Bonus" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="senddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblIDChangeHistory" Member="tblIDChangeHistories">
+    <Type Name="tblIDChangeHistory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="oldname" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="newname" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="oldmobile" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="newmobile" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="isAchievement" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="oldpan" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="newpan" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRepurchaseRank" Member="tblRepurchaseRanks">
+    <Type Name="tblRepurchaseRank">
+      <Column Name="RankId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RankName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BvRequired" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="SelfBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="MatchingIncome" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="MaintenanceBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Term" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reward" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TeamBvPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalBvRequired" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="TotalSelfBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Incentive" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="mrepBV" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="mrepBV20" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="mfa" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="rep_Slab" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblMember" Member="tblMembers">
+    <Type Name="tblMember">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="refid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="mobile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[plan]" Member="plan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="leg" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="state" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="city" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="joindate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="enddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="renewal" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="renewalplan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="dob" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="pincode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="isActive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="gender" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="bankname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="branch" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="account" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ifsc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="aadhar" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="payment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="franchise" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pinnumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tlcount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="trcount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="credit" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="debit" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="lcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="rcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="UploadPan" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="UploadId" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TourPackageEligible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EligibleDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UsedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Nominee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NomineeAge" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NomineeRelation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="transPassword" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="flushOut" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="accName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="goldlcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="goldrcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="diamondlcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="diamondrcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="accHolderName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="accType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="goldAchieveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="diamondAchieveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GoldPairMatch" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DiamondPaidMatch" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="goldFlushout" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="diamondFlushout" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RepurchaseWallet" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="silverLeft" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="silverRight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dlCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="drCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="slCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="srCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isPanVerifed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UploadBank" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="oldUsername" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="selfBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="leftBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="rightBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="leftTotalBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="rightTotalBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="rankid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="maintenanceBv" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="RepIncome" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="selfPurchaseWallet" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="district" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="total_left" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="total_right" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="alcount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="arcount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="alcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="arcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="algoldcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="argoldcarry" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="achievementwallet" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="achivementlevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cumbv_left" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="cumbv_right" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="cumbv_self" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="run_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="salaryWallet" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="MFA" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="RepCarryCycle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RepCarryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblVendor" Member="tblVendors">
+    <Type Name="tblVendor">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VendorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CompanyCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Pincode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RoleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReportingId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PAN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Aadhar" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="GSTIN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="KitWallet" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="KitWalletDebit" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="RepurchaseWallet" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="RepurchaseWalletDebit" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="bankname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="branch" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="account" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ifsc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="isKyc" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="SponsoredBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nominee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NomineeAge" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NomineeRelation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CashWallet" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="UploadPAN" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="UploadBank" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="UsedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EligibleDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="isStatusActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="district" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="isFirst" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isSecond" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="salaryWallet" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="WindowMonth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WindowYear" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isEligiable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="allowSalary" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRoles" Member="tblRoles">
+    <Type Name="tblRole">
+      <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="role" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="bonusPercent" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="sponsorPercent" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFranchiseCommissionLapsed" Member="tblFranchiseCommissionLapseds">
+    <Type Name="tblFranchiseCommissionLapsed">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SalesPercentage" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRewards" Member="tblRewards">
+    <Type Name="tblReward">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="achievedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="awardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="courier" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.spAddClubRanks" Method="spAddClubRanks">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.spAddRanks" Method="spAddRanks">
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

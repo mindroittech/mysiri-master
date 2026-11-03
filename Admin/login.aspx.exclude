@@ -1,0 +1,49 @@
+﻿<%@ Page Title="Admin Login" Language="C#" MasterPageFile="../../portal/MasterPage.master"
+    AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="Admin_login" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="row">
+        <div id="tg-twocolumns" class="tg-twocolumns">
+            <form class="tg-formtheme tg-formdashboard">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div id="tg-content" class="tg-content">
+                    <div class="tg-dashboard">
+                        <asp:Panel ID="Panel1" runat="server" DefaultButton="btnsignin">
+                            <div class="tg-box tg-changepassword">
+                                <div class="tg-heading">
+                                    <h3>
+                                        Admin Login</h3>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        Username<sup>*</sup></label>
+                                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Username"></asp:TextBox>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label>
+                                        Password<sup>*</sup></label>
+                                    <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control" placeholder="Password"
+                                        TextMode="Password"></asp:TextBox>
+                                </div>
+                                <div class="tg-userbox">
+                                    <asp:LinkButton ID="btnsignin" CssClass="tg-btn" runat="server" OnClick="Button1_Click"><span>Log In</span></asp:LinkButton>
+                                </div>
+                                <br />
+                                <p>
+                                    <center>
+                                        <asp:Label ID="Label1" runat="server" ForeColor="Red" Text="Label" Visible="False"></asp:Label></center>
+                                </p>
+                            </div>
+                        </asp:Panel>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</asp:Content>

@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class admin_send_sms : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    sendsms sms = new sendsms();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            string admin = Session["admin"].ToString();
+
+            if (Request.QueryString["st"] == "sub")
+            {
+                Label1.Text = "Sms has been sent successfuly";
+                Label1.Visible = true;
+            }
+        }
+
+        catch
+        {
+            Response.Redirect("login.aspx");
+        }
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        string msg = TextBox2.Text;
+        if (DropDownList1.SelectedIndex != 0)
+        {
+
+            tdNumber.Visible = false;
+            var query = (from c in db.tblMembers
+                         where c.mobile.Length >= 10 && c.isActive==1
+                         select c.mobile).Distinct();   // to avoid duplicate mobile numbers.
+
+            //Response.Write(query.Count());
+
+            foreach (var q in query)
+            {
+                sms.sms(q.ToString(), msg);
+            }
+
+        }
+
+        else
+        {
+            if (txtNo.Text.Trim() != string.Empty)
+            {
+                sms.sms(txtNo.Text, msg);
+            }
+        }
+
+        Response.Redirect("send-sms.aspx?st=sub");
+    }
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (DropDownList1.SelectedIndex == 0)
+            tdNumber.Visible = true;
+        else
+            tdNumber.Visible = false;
+    }
+}

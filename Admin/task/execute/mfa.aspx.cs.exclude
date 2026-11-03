@@ -1,0 +1,181 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_task_execute_mfa : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    sendsms sm = new sendsms();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Request.QueryString["id"] == "mfa")
+            {
+
+                Response.Write("<script>console.log('MFA Task Started');</script>");
+
+
+                db.CommandTimeout = 7200; // 2 hours
+                DateTime date = DateTime.UtcNow.AddHours(5.5);
+                MFA(date);
+
+                WithdrawalMFA(date);
+
+            }
+        }
+        catch
+        {
+            throw;
+        }
+    }
+    private void MFA(DateTime date)
+    {
+        db.CommandTimeout = 7200;
+        DateTime startPrevMonth = new DateTime(date.Year, date.Month, 1).AddMonths(-1);
+        DateTime endPrevMonth = startPrevMonth.AddMonths(1).AddDays(-1);
+        DateTime cutOff26 = new DateTime(startPrevMonth.Year, startPrevMonth.Month, 26);
+
+        var members = (from m in db.tblMembers
+                       join r in db.tblRepurchaseRanks
+                       on m.rankid equals r.RankId into rankJoin
+                       from r in rankJoin.DefaultIfEmpty()
+                       where (m.isActive == 1 && m.status == "Paid")
+                       select new { m, r }).ToList();
+
+        foreach (var item in members)
+        {
+            // 🚨 Skip users without rank
+            if (item.r == null)
+                continue;
+
+            string user = item.m.username;
+
+            var bvData = db.tblBVs
+                .Where(x =>
+                    x.username == user &&
+                    x.bvType == "Repurchase" &&
+                    x.bvFrom != "Admin" &&
+                    x.date >= startPrevMonth &&
+                    x.date <= endPrevMonth)
+                .ToList();
+
+            if (!bvData.Any())
+                continue;
+
+            decimal leftBV = bvData
+                .Where(x => x.desc == "Left")
+                .Sum(x => x.leftBv ?? 0);
+
+            decimal rightBV = bvData
+                .Where(x => x.desc == "Right")
+                .Sum(x => x.rightBv ?? 0);
+
+            decimal matchingBV = Math.Min(leftBV, rightBV);
+
+            decimal leftBefore26 = bvData
+                .Where(x => x.desc == "Left" && x.date <= cutOff26)
+                .Sum(x => x.leftBv ?? 0);
+
+            decimal rightBefore26 = bvData
+                .Where(x => x.desc == "Right" && x.date <= cutOff26)
+                .Sum(x => x.rightBv ?? 0);
+
+            decimal matchingBefore26 = Math.Min(leftBefore26, rightBefore26);
+
+            if (matchingBV >= item.r.mrepBV &&
+                matchingBefore26 >= item.r.mrepBV20)
+            {
+                item.m.MFA = (item.m.MFA ?? 0) + item.r.mfa;
+
+                CreateMFAPayout(user, (decimal)item.r.mfa, item.r.RankName);
+            }
+
+            Response.Write(user + " | MatchBV:" + matchingBV +
+               " | Before26:" + matchingBefore26 +
+               " | Need:" + item.r.mrepBV +
+               " | Need20:" + item.r.mrepBV20 + "<br>");
+        }
+
+        db.SubmitChanges();
+    }
+    private void CreateMFAPayout(string username, decimal amount, string remarks)
+    {
+        DateTime istNow = DateTime.UtcNow.AddHours(5.5);
+
+        db.Payouts.InsertOnSubmit(new Payout
+        {
+            username = username,
+            date = istNow.Date,
+            confirmdate = istNow,
+            desc = "Monthly Field Allowance",
+            tax = 0,
+            netpayout = amount,
+            credit = amount,
+            debit = 0,
+            status = "Send",
+            incomefrom = username,
+            remarks = remarks
+        });
+    }
+
+    private void WithdrawalMFA(DateTime date)
+    {
+         //if (date.Day != 1) return;
+
+        var getpayout = from c in db.tblMembers
+                        where c.isActive == 1 && c.MFA > 0
+                        select c;
+        foreach (var g in getpayout)
+        {
+
+            decimal credit = g.MFA.Value * 90 / 100;
+            decimal deduction = 0;
+            int? loanId = null;
+            var checkLoan = db.tblLoans.FirstOrDefault(x => x.status == "Active" && x.username == g.username);
+            if (checkLoan != null)
+            {
+                decimal remaining = checkLoan.loanAmount.Value - checkLoan.recoveredAmount.Value;
+                decimal deductionAmt = credit * checkLoan.recoveryPercent.Value / 100;
+                if (deductionAmt > remaining)
+                {
+                    deduction = remaining;
+                }
+                else
+                {
+                    deduction = deductionAmt;
+                }
+
+                loanId = checkLoan.loanId;
+                checkLoan.recoveredAmount += deduction;
+                if (checkLoan.loanAmount == checkLoan.recoveredAmount)
+                    checkLoan.status = "Closed";
+            }
+            decimal amt = g.MFA.Value;
+            var insert = new PaymentRequest
+            {
+                date = date,
+                username = g.username,
+                cashavailable = g.MFA,
+                amount = amt,
+                tax = amt * 2 / 100,
+                sc = amt * 8 / 100,
+                deduction = deduction,
+                netpay = ((amt * 90 / 100) - deduction),
+                status = "Pending",
+                comments = "MFA"
+            };
+            if (deduction > 0)
+            {
+                insert.loanId = loanId;
+            }
+            db.PaymentRequests.InsertOnSubmit(insert);
+            g.MFA = 0;
+
+        }
+        db.SubmitChanges();
+    }
+}

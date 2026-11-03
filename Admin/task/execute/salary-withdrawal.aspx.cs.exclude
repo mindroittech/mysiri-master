@@ -1,0 +1,148 @@
+﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_task_execute_auto_withdraw : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    sendsms sm = new sendsms();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["id"] == "auto")
+        {
+            DateTime now = DateTime.UtcNow.AddHours(5.5);
+          
+            db.CommandTimeout = 7200;
+
+            if (Request.QueryString["ved"] == "hourly")
+                HourlyWindowCheckNew();
+
+            if(Request.QueryString["ved"] == "monthly")
+            {
+                ProcessSalaryCredit(now);
+                ProcessPayout(now);
+            }
+
+        }
+
+    }
+
+    private void HourlyWindowCheckNew()
+    {
+        DateTime now = DateTime.UtcNow.AddHours(5.5);
+
+        int day = now.Day;
+
+        //bool inFirstWindow = day >= 1 && day <= 3;
+
+        //if (!inFirstWindow)
+        //    return;
+
+        DateTime cutoffDate = DateTime.UtcNow.AddHours(5.5).Date.AddDays(-20);
+
+        var franchisees = db.tblVendors
+            .Where(x => x.IsActive == true && x.RoleId > 2 && x.CreatedDate.Value.Date < cutoffDate)
+            .ToList();
+
+        foreach (var f in franchisees)
+        {
+            // ✅ Safe null check
+            if (f.isEligiable == true)
+                continue;
+
+            // ✅ Get stock value
+            decimal totalStock = (from p in db.tblProducts
+                                  join s in db.tblVendorStocks
+                                  on p.ProductId equals s.ProductId
+                                  where s.VendorId == f.Id
+                                  select (decimal?)(p.DP * s.Stock)).Sum() ?? 0;
+
+            // ✅ Safe wallet handling
+            decimal cashWallet = f.CashWallet;
+
+            decimal totalValue = cashWallet + totalStock;
+
+            // ✅ Correct percentage calculation
+            decimal target = (f.Amount ?? 0) * 0.90m;
+
+            if (totalValue >= target)
+            {
+                f.isEligiable = true;
+            }
+        }
+
+        db.SubmitChanges();
+    }
+    private void ProcessSalaryCredit(DateTime date)
+    {
+        int day = date.Day;
+
+        DateTime cutoffDate =date.Date.AddDays(-20);
+
+        var districts = db.tblVendors
+            .Where(x => x.IsActive == true && x.RoleId > 2 && x.fcount>0  && x.CreatedDate.Value.Date < cutoffDate)
+            .ToList();
+
+        foreach (var d in districts)
+        {
+            if (d.isEligiable == true && d.allowSalary==true)
+            {
+                decimal salary = d.Amount.Value * 0.01m;
+                // SELF SALARY
+                d.salaryWallet += salary;
+
+                db.Payouts.InsertOnSubmit(new Payout
+                {
+                    username = d.Username,
+                    credit = salary,
+                    netpayout = salary,
+                    desc = "Salary Income",
+                    remarks = "Franchisee Salary",
+                    status = "Send",
+                    date = date.Date,
+                    confirmdate = date
+                });
+            }
+
+            d.isEligiable = false;
+            d.fcount = d.fcount.Value - 1;
+        }
+       
+        db.SubmitChanges();
+    }
+
+    private void ProcessPayout(DateTime date)
+    {
+        int day = date.Day;
+
+        var districts = db.tblVendors
+            .Where(x => x.IsActive == true && x.salaryWallet>0)
+            .ToList();
+
+        foreach (var d in districts)
+        {
+            db.PaymentRequests.InsertOnSubmit(new PaymentRequest
+            {
+                username = d.Username,
+                amount = d.salaryWallet,
+                cashavailable = d.salaryWallet,
+                tax = d.salaryWallet * 0.02m,
+                sc = d.salaryWallet * 0.08m,
+                netpay = d.salaryWallet * 0.90m,
+                status = "Pending",
+                comments = "Salary Pay",
+                date = date
+            });
+
+            d.salaryWallet = 0;
+        }
+
+        db.SubmitChanges();
+    }
+
+}

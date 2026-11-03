@@ -1,0 +1,97 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_task_execute_rerun : System.Web.UI.Page
+{
+    DataClassesDataContext db = new DataClassesDataContext();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["id"] == "auto")
+        {
+            DateTime date = DateTime.UtcNow.AddHours(5.5);
+            if (Request.QueryString["d"] != null)
+            {
+                date = Convert.ToDateTime(Request.QueryString["d"]);
+            }
+
+            FranchiseCommission(date);
+        }
+    }
+
+    private void FranchiseCommission(DateTime date)
+    {
+        DateTime lastDate = date.AddDays(-1).Date;
+        DateTime startDate = new DateTime(lastDate.Year, lastDate.Month, 1);
+
+        //For Franchisee
+        var invoices = from c in db.tblInvoices
+                       where c.PurchaseDate >= startDate && c.PurchaseDate <= lastDate && c.FranchiseeId >= 1129
+                       group c by c.FranchiseeId into grp
+                       select new { franchiseeId = grp.Key, amount = grp.Sum(x => x.Amount) };
+        foreach (var inv in invoices)
+        {
+            var franch = db.tblVendors.Single(x => x.Id == inv.franchiseeId);
+            var role = db.tblRoles.SingleOrDefault(x => x.RoleId == franch.RoleId);
+            
+            decimal commissionPercent = 0;
+            decimal totalOrderAmt = 0;
+            var allOrders = from c in db.tblInvoices
+                            where c.FranchiseeId == inv.franchiseeId
+                            select c;
+            if (allOrders.Any())
+                totalOrderAmt = allOrders.Sum(x => x.Amount.Value);
+            if (totalOrderAmt >= role.amount)
+            {
+                decimal orderAmt = inv.amount.Value;
+                if (orderAmt > 0 && orderAmt <= 49999)
+                {
+                    commissionPercent = 4;
+                }
+                else if (orderAmt > 49999 && orderAmt <= 99999)
+                {
+                    commissionPercent = 5;
+                }
+                else if (orderAmt > 99999 && orderAmt <= 149999)
+                {
+                    commissionPercent = 5.5m;
+                }
+                else if (orderAmt > 149999)
+                {
+                    commissionPercent = 6;
+                }
+            }
+            else
+            {
+                commissionPercent = role.bonusPercent.Value;
+            }
+            decimal commission = inv.amount.Value * commissionPercent / 100;
+            if (commission > 0)
+            {
+                franch.RepurchaseWallet += commission;
+                Payout(franch.Username, commission, "Franchisee Commission", "Commission from Members Invoice", date);
+            }
+        }
+    }
+
+    private void Payout(string uname, decimal Amount, string desc, string remarks, DateTime date)
+    {
+        var history = new Payout
+        {
+            username = uname,
+            credit = Amount,
+            debit = 0,
+            date = date.Date,
+            confirmdate = date,
+            desc = desc,
+            remarks = remarks,
+            status = "Send",
+        };
+        db.Payouts.InsertOnSubmit(history);
+        db.SubmitChanges();
+    }
+
+}

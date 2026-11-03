@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37628.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "mysiri-master", ".", "{065A3F10-F4CB-09B3-697E-D44B9DE58E57}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_61191"
+		Debug.AspNetCompiler.PhysicalPath = "D:\MYSIRI SOURABHA\Source code\mysiri-master\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61191\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_61191"
+		Release.AspNetCompiler.PhysicalPath = "D:\MYSIRI SOURABHA\Source code\mysiri-master\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61191\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "61191"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{065A3F10-F4CB-09B3-697E-D44B9DE58E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{065A3F10-F4CB-09B3-697E-D44B9DE58E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B23179F2-3EF6-4371-AA17-ED308388F3F2}
+	EndGlobalSection
+EndGlobal
